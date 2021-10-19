@@ -63,6 +63,49 @@ public class EmployeeControllerIntegrationTest {
         employeeRepository.deleteAll();
     }
 
-    
+    @Test
+    public void createEmployee_success_returnBaseResponse() throws Exception {
+        /* Success */
+        Assert.assertNotNull("baseResponse.getRequestId()");
+
+
+        // Call register API
+        employeeCreateRequest = EmployeeCreateRequest.builder()
+                .empNo(EMP_NO_1)
+                .empName(EMP_NAME_1)
+                .job(JOB_1)
+                .mgr(MGR_1)
+                .hireDate(HIRE_DATE_1)
+                .sal(SAL_1)
+                .comm(COMM_1)
+                .department(DEPARTMENT_1)
+                .build();
+//        ValidatableResponse validatableResponse =
+//                RestAssured.given().contentType(ContentType.JSON).body(employeeCreateRequest)
+//                        .queryParam("storeId", "aaaaa")
+//                        .queryParam("channelId", "aaaaa")
+//                        .queryParam("clientId", "aaaaa")
+//                        .queryParam("requestId", "aaaaa")
+//                        .queryParam("username", "aaaaa")
+//                        .post("/demo" + EmployeeControllerPath.BASE_PATH).then();
+//        System.out.println(validatableResponse.extract().asString());
+        Employee employee = Optional.ofNullable(employeeCreateRequest).map(e -> {
+            Employee employeex = Employee.builder().build();
+            BeanUtils.copyProperties(e, employeex);
+
+            Department department = Optional.ofNullable(employeex.getDepartment()).map(d -> {
+                Department departmentx = Department.builder().build();
+                BeanUtils.copyProperties(d, departmentx);
+                return departmentx;
+            }).orElse(null);
+
+            employeex.setDepartment(department);
+            return employeex;
+        }).orElse(null);
+        employeeRepository.save(employee);
+
+        System.out.println(employeeRepository.findAll());
+
+    }
 
 }
