@@ -24,6 +24,8 @@
 		<spring-cloud.version>2.1.0.RELEASE</spring-cloud.version>
 		<lombok.version>1.18.4</lombok.version>
 		<swagger.version>2.9.2</swagger.version>
+		<io.rest.assured>3.0.2</io.rest.assured>
+		<com.jayway.restassured>2.4.1</com.jayway.restassured>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 	</properties>
@@ -63,6 +65,23 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${io.rest.assured}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${com.jayway.restassured}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
